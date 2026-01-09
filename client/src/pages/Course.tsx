@@ -50,7 +50,14 @@ export default function Course() {
           </div>
           
           <div className="glass-panel p-6 rounded-2xl">
-            <VideoDetails videoId={activeVideoId} courseId={courseId} />
+            <VideoDetails 
+              videoId={activeVideoId} 
+              courseId={courseId} 
+              nextVideoId={course.videos.find((_, i) => course.videos[i].id === activeVideoId && i < course.videos.length - 1) 
+                ? course.videos[course.videos.findIndex(v => v.id === activeVideoId) + 1].id 
+                : undefined
+              }
+            />
           </div>
         </div>
 
@@ -162,7 +169,7 @@ function VideoPlayer({ videoId, onComplete }: { videoId: number, onComplete: () 
   );
 }
 
-function VideoDetails({ videoId, courseId }: { videoId: number, courseId: number }) {
+function VideoDetails({ videoId, courseId, nextVideoId }: { videoId: number, courseId: number, nextVideoId?: number }) {
   const { data: video } = useVideo(videoId);
   const { progress, addXp, unlockVideo, completeVideo, saveQuizScore } = useProgress();
   const { toast } = useToast();
@@ -236,15 +243,21 @@ function VideoDetails({ videoId, courseId }: { videoId: number, courseId: number
       if (!isVideoCompleted) {
         addXp(50);
         completeVideo(videoId);
-        // Unlock next video logic would require knowing the full course list order here
-        // For MVP, we assume ID + 1 is next or we'd refetch course to find next
-        unlockVideo(videoId + 1); 
         
-        toast({
-          title: "Quiz Passed! +50 XP",
-          description: "Next lesson unlocked!",
-          className: "bg-green-600 border-green-700 text-white",
-        });
+        if (nextVideoId) {
+          unlockVideo(nextVideoId);
+          toast({
+            title: "Quiz Passed! +50 XP",
+            description: "Next lesson unlocked!",
+            className: "bg-green-600 border-green-700 text-white",
+          });
+        } else {
+          toast({
+            title: "Course Completed! +50 XP",
+            description: "You've mastered this course!",
+            className: "bg-green-600 border-green-700 text-white",
+          });
+        }
       }
     } else {
       toast({
