@@ -1,0 +1,113 @@
+You are a senior frontend engineer.
+
+Build a production-ready React frontend for a gamified learning platform that converts a YouTube playlist into a structured, enforced learning path.
+
+TECH STACK:
+- React (Vite)
+- TypeScript
+- Tailwind CSS
+- Modern React hooks
+- Clean, scalable folder structure
+- No placeholder code, everything functional
+
+CORE REQUIREMENTS:
+
+1. Playlist Input Page
+- Input field for YouTube playlist URL
+- Validate playlist URL format
+- Submit button
+- Loading state while playlist is processed
+- Error handling UI
+
+2. Learning Path Page
+- Display playlist title
+- List all videos vertically as steps
+- Only the first video is unlocked initially
+- Locked videos must appear disabled with a lock icon
+- Show overall completion percentage at top
+
+3. Video Player Section
+- Embed YouTube video using YouTube IFrame API
+- Disable related videos, autoplay, comments
+- Detect when video finishes playing
+- After completion, enable "Take Quiz" button
+
+4. Quiz Flow
+- Show 5 MCQs generated for the current video
+- One question at a time
+- Prevent skipping questions
+- Submit quiz at end
+- Calculate score immediately
+- Show explanations after submission
+
+5. Progression Enforcement
+- If score >= 80%:
+  - Unlock next video
+  - Award XP
+  - Show success modal
+- If score < 80%:
+  - Show failure message
+  - Allow quiz retry
+  - Do NOT unlock next video
+
+6. Gamification System
+- XP counter always visible
+- Level indicator derived from XP
+- Progress bar showing XP to next level
+- XP calculation rules:
+  - Video completed: +20 XP
+  - Quiz score 80–89%: +30 XP
+  - Quiz score 90–100%: +50 XP
+
+7. Leaderboard (IMPORTANT)
+- Leaderboard screen or sidebar
+- Shows top learners ranked by XP
+- Displays:
+  - Rank
+  - Username
+  - Level
+  - Total XP
+- For hackathon MVP:
+  - Use mock users + current user
+  - Data stored in localStorage
+- Update leaderboard live when XP changes
+
+8. State Management
+- Track:
+  - Current video index
+  - Quiz attempts
+  - XP and level
+  - Locked/unlocked videos
+  - Leaderboard data
+- Persist all progress in localStorage
+
+9. UX Constraints (VERY IMPORTANT)
+- User must NOT:
+  - Skip to next video
+  - Access locked videos
+  - Bypass quiz requirement
+- All locked actions must be visually disabled
+
+10. Code Quality
+- Fully typed with TypeScript
+- Reusable components:
+  - VideoCard
+  - YouTubePlayer
+  - Quiz
+  - ProgressBar
+  - Leaderboard
+- Clean separation of concerns
+- Polished UI suitable for hackathon demo
+
+DELIVERABLES:
+- Complete React app code
+- Component structure explanation
+- Setup instructions (npm install, npm run dev)
+
+DO NOT:
+- Use backend APIs (mock data allowed)
+- Leave TODOs or placeholders
+- Skip enforcement logic
+
+FOCUS:
+This product enforces learning discipline using progression, quizzes, and competitive gamification.
